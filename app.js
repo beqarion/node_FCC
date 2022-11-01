@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
 const tasks = require("./routes/tasks")
+const connectDB = require("./db/connect")
 
 // middleware
 app.use(express.json())
@@ -20,6 +21,12 @@ app.use("/api/v1/tasks", tasks)
 
 const port = 3000
 
-app.listen(port, () => {
-  console.log(`serveri is listening on port ${port}`)
-})
+connectDB(
+  "mongodb+srv://beqarioni:sheyiladzee@cluster0.kvpza3x.mongodb.net/TASK-MANAGER?retryWrites=true&w=majority"
+)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`serveri is listening on port ${port}`)
+    })
+  })
+  .catch((err) => console.log(err))
