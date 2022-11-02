@@ -21,12 +21,15 @@ app.use("/api/v1/tasks", tasks)
 
 const port = 3000
 
-connectDB(
-  "mongodb+srv://beqarioni:sheyiladzee@cluster0.kvpza3x.mongodb.net/TASK-MANAGER?retryWrites=true&w=majority"
-)
-  .then(() => {
+const start = async () => {
+  try {
+    await connectDB()
     app.listen(port, () => {
-      console.log(`serveri is listening on port ${port}`)
+      console.log(`server is listening on port ${port}`)
     })
-  })
-  .catch((err) => console.log(err))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()
